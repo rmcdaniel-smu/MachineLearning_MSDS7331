@@ -1,0 +1,62 @@
+---
+title: "ML1-CaseStudy1"
+author: "Reannan McDaniel"
+output: html_document
+---
+
+## Setup: Libraries and Reading in Datasets
+```{r data import, cache=TRUE, warning=FALSE}
+library(RCurl)
+library(plyr)
+library(ggplot2)
+library(dplyr)
+library(tidyverse)
+library(car)
+library(naniar)
+library(viridis)
+library(scales)
+
+URL <- getURL("https://raw.githubusercontent.com/fredpoon/ds_7331_jyrf_eda/master/PublicSchools2014to2017_YZ.csv")
+schools <- read.csv(text=URL, header = T, sep = ",", strip.white = T)
+
+```
+
+
+## Business Understanding
+
+Choosing the right data set for to perform multiple types of tests across different types of data can be a challenge.  There needs to be sufficient variables, more than 30 is a good base, and about 25,000 rows of data.  The variables should include a combination of continuous and categorical variables in order to run regression or classification models.  
+
+We decided to work with The Belk Foundation data sets from 2014 to 2017.  These data sets encompass information across 4 continuous years of educational attributes in North Carolina, USA.  ****WHO COLLECTED THE DATA?****For the purpose of this exercise our focus is around school performance on different types  of characteristics like  schools, type of school, social demographic, economic demographics, location and school category within 2014-2017.  The Belk Foundation's website says, "Our goal is to empower today’s workforce by creating pathways to and through postsecondary education for underrepresented students". For the sake of this analysis, we assume that better performing schools have better outcomes in postsecondary education. With North Carolina's rapidly-changing demographics, it is important to take into consideration schools' unique needs when allocating funds to strategic investment initiatives. Here, we explore where funding can be best applied based to educational achievement data.
+
+In order to achieve this goal, we will explore through visual and mathematical modeling which features best predict the School Performance Grade (SPG), a measure of a school's overall success based on test scores and growth measures.
+
+
+##Data Meaning Type
+
+Describe the meaning and type of data (scale, values, etc.) for each attribute in the data file.  Describe the meaning and type of data for each attribute in the file.  Include field names, count of fields, how records, data types and definitation.  Can provide a data table or data dictionary as well.
+
+```{r}
+
+head(schools,10)
+tail(schools,10)
+str(schools)
+summary(schools)
+view(schools)
+#write schools to csv
+write.csv(schools, file = "ML1_schools.csv")
+#skim(schools)
+
+```
+
+##Data Quality
+
+Verify data quality: Explain any missing values, duplicate data, and outliers.  Are those mistakes?  How do you deal with these problems?  Give justification for your methods.  Verify any missing values and explain. 6-7 questions that need to be answered.
+
+```{r}
+
+which(is.na(schools))
+
+```
+
+
+
